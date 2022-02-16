@@ -3,7 +3,8 @@ import * as uuid from 'uuid'
 
 const clientId = '1ab55d460fa4444ea2bde381750d3432'
 const scope = 'user-read-private user-read-email user-library-modify user-library-read playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public'
-const redirectUrl = 'https://localhost:3000/loginRedirect'
+// const redirectUrl = 'https://localhost:3000/loginRedirect'
+const redirectUrl = 'https://fnkky.github.io/spotartlist/loginRedirect'
 
 const ACCESSTOKEN_LS_ITEMNAME = 'spotifyAccessToken'
 const STATE_LS_ITEMNAME = 'stateTokenForLogin'
