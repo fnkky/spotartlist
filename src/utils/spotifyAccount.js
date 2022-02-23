@@ -28,7 +28,7 @@ export const forceLogedInState = () => {
       })
       .catch(e => {
         console.log('Procile wurde nicht geladen, starte Login-Prozedur')
-        // spotifyLoginDelegate()
+        spotifyLoginDelegate()
         resolve(false)
       })
   })
