@@ -6,6 +6,17 @@ const { spotifyUserProfile } = useSpotifyLogIn()
 </script>
 
 <template>
-  <div>angmeledet als {{ spotifyUserProfile?.id }}</div>
-  <router-view />
+  <v-app>
+    <v-app-bar app>
+      <div class="d-flex justify-between">
+        <h1 class="text-h4">
+          SpotArtList
+        </h1>
+        <div>{{ spotifyUserProfile?.id }}</div>
+      </div>
+    </v-app-bar>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>

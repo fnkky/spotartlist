@@ -1,14 +1,15 @@
 <template>
   <section>
     <h3>
-      Aktueller Titel
+      Modus: aktueller Titel
 
-      <button
-        class="btn btn-sm"
+      <v-btn
+        icon
+        flat
         @click="readCurrentTrack"
       >
-        refr.
-      </button>
+        <v-icon>mdi-refresh</v-icon>
+      </v-btn>
     </h3>
   </section>
   <hr>

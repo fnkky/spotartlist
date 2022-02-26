@@ -92,7 +92,7 @@ const spotifyUserProfile = ref(null)
 const loginTried = ref(false)
 const loginError = ref(null)
 const accessToken = ref(null)
-
+const userId = ref(null)
 export const useSpotifyLogIn = () => {
   if (!spotifyUserProfile.value) {
     // auf der Login-Seite nichts machen
@@ -105,6 +105,7 @@ export const useSpotifyLogIn = () => {
       .then(result => {
         spotifyUserProfile.value = result.profile
         accessToken.value = result.accessToken
+        userId.value = result.profile.id
       })
       .then(() => (loginTried.value = true))
       .catch(e => (loginError.value = e))
@@ -112,6 +113,7 @@ export const useSpotifyLogIn = () => {
 
   return {
     spotifyUserProfile: readonly(spotifyUserProfile),
-    accessToken: readonly(accessToken)
+    accessToken: readonly(accessToken),
+    userId: readonly(userId)
   }
 }

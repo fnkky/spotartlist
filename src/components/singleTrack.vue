@@ -1,36 +1,54 @@
 <template>
-  <section v-if="!!trackId">
-    singleTrack mit der ID {{ trackId }}
-    <article>
-      <div style="display: flex">
-        <div>
-          <h5>{{ spotifyTrack?.songTitle.value }}</h5>
-          <h5>{{ spotifyTrack?.artistsJoined.value }}</h5>
-          <h5>{{ spotifyTrack?.albumName.value }}</h5>
-        </div>
+  <v-card v-if="!!trackId">
+    <v-card-title>
+      {{ spotifyTrack?.songTitle.value }}
+    </v-card-title>
+    <v-card-subtitle> {{ spotifyTrack?.artistsJoined.value }}</v-card-subtitle>
+    <v-img
+      :src="spotifyTrack?.albumImageSource.value"
+      height="30vh"
+    /><v-card-actions>
+      <v-btn
+        color="orange-lighten-2"
+        variant="text"
+      >
+        In Playlists aufnehmen
+      </v-btn>
 
-        <img
-          :src="spotifyTrack?.albumImageSource.value"
-        >
-      </div>
-    </article>
-    <article>
-      <ul>
-        <li
-          v-for="artistItem in spotifyTrack?.artists.value"
-          :key="artistItem.id"
-          style="margin-top: 0.25rem"
-        >
-          <button
-            style="padding: 0.25rem"
-            @click="addToPlaylist(artistItem)"
+      <v-spacer />
+
+      <v-btn
+        :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+        @click="show = !show"
+      />
+    </v-card-actions>
+
+    <v-expand-transition>
+      <div
+        v-show="show"
+        class="px-2 pb-3"
+      >
+        <v-divider />
+
+        <ul>
+          <li
+            v-for="artistItem in spotifyTrack?.artists.value"
+            :key="artistItem.id"
+            style="margin-top: 0.25rem"
           >
-            In Playlist "{{ artistItem.playlistName }}" aufnehmen
-          </button>
-        </li>
-      </ul>
-    </article>
-  </section>
+            <v-btn
+              color="primary"
+              block
+              @click="spotifyPlaylistManager.addToPlaylist(artistItem, spotifyTrack.songUri)"
+            >
+              {{ artistItem.playlistName }}
+            </v-btn>
+          </li>
+        </ul>
+      </div>
+    </v-expand-transition>
+  </v-card>
+
   <div
     v-else
     class="p-5 text-cyan-200 font-bold bg-gradient-to-tl from-stone-500 via-slate-500 to-neutral-600"
@@ -41,14 +59,12 @@
 
 <script setup>
 
-import { inject, watch, defineProps } from 'vue'
-// eslint-disable-next-line no-unused-vars
-import SpotifyWebApi from 'spotify-web-api-js'
+import { watch, defineProps, ref } from 'vue'
 
 import { useSpotifyTrack } from '../utils/spotifyTrack.js'
-import { useSpotifyApi } from '../utils/spotifyApiComp.js'
 
-const { spotifyApi } = useSpotifyApi()
+import { useSpotifyPlaylists } from '../utils/spotifyPlaylistsComp.js'
+const spotifyPlaylistManager = useSpotifyPlaylists()
 
 const props = defineProps({
   trackId: {
@@ -63,46 +79,5 @@ watch(() => props.trackId, (newVal) => {
   spotifyTrack.setTrackid(newVal)
 }, { immediate: true })
 
-const getTargetPlaylist = async (playlistName, artistName) => {
-  /** @type{SpotifyWebApi.SpotifyWebApiJs.} */
-  let gefunden = null
-  const limit = 50
-  let offset = 0
-  let esGibtWeitere = true
-  while (esGibtWeitere && !gefunden) {
-    const response = await spotifyApi.getUserPlaylists(userStore.userId, { limit, offset })
-
-    esGibtWeitere = !!response.next
-    const playlistsInDiesemFetch = response.items
-    offset += playlistsInDiesemFetch.length
-
-    gefunden = playlistsInDiesemFetch.find(playlist => playlist.name === playlistName)
-  }
-
-  if (!gefunden) {
-    const neuePlaylist = await spotifyApi.createPlaylist(userStore.userId, {
-      name: playlistName,
-      public: false,
-      collaborative: false,
-      description: `Meine BestOf-Songs von ${artistName}`
-    })
-    return neuePlaylist
-  }
-
-  return gefunden
-}
-
-const addToPlaylist = async (artistItem) => {
-  const { id, name, playlistName } = artistItem
-
-  const playlist = await getTargetPlaylist(playlistName, name)
-
-  const playlistId = playlist.id
-  const trackUri = spotifyTrack.songUri.value
-
-  const result = await spotifyApi.addTracksToPlaylist(playlistId, [trackUri])
-
-  console.log({ id, name, playlistName, playlist, result })
-}
-
+const show = ref(true)
 </script>

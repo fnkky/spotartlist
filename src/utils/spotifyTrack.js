@@ -41,7 +41,7 @@ export function useSpotifyTrack () {
   })
 
   const albumImageSource = computed(() => {
-    return titleRaw.value?.album?.images?.[2]?.url
+    return titleRaw.value?.album?.images?.[1]?.url
   })
 
   const artists = computed(() => {
