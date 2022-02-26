@@ -2,7 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeComponent from './../views/Home.vue'
-import LoginRedirect from './../views/LoginRedirect.vue'
+// import LoginRedirect from './../views/LoginRedirect.vue'
 export const LOGIN_REDIRECT_ROUTE_NAME = 'LoginRedirect'
 
 const routes = [
@@ -10,10 +10,6 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeComponent
-  },
-  {
-    path: '/loginRedirect',
-    component: LoginRedirect
   }
 ]
 

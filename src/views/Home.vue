@@ -1,13 +1,16 @@
 <script setup>
-import { computed } from 'vue-demi'
-import { useUserStore } from '../stores/user'
-import AktuellerTitel from '../components/aktuellerTitel.vue'
 
-const userStore = useUserStore()
-const userAngemeldet = computed(() => !!userStore.profile)
+import AktuellerTitel from '../components/aktuellerTitel.vue'
+import { useSpotifyLogIn } from '../utils/spotifyAccountComp'
+
+const { spotifyUserProfile } = useSpotifyLogIn()
+
 </script>
 <template>
-  <div v-if="userAngemeldet">
+  <div v-if="!!spotifyUserProfile">
     <AktuellerTitel />
+  </div>
+  <div v-else>
+    User ist noch nicht angemeldet
   </div>
 </template>

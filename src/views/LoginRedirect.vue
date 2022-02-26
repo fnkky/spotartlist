@@ -18,8 +18,8 @@ const spotifyApi = inject('spotifyApi')
 const router = useRouter()
 const userStore = useUserStore()
 
-
 onMounted(() => {
+  debugger
   const rnd = Math.random()
   console.log('Jetzt im OnMounted von LoginRedirect.vue', rnd)
   logInRouteGuardDelegate()

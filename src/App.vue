@@ -1,15 +1,11 @@
 <script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import { onMounted } from 'vue-demi'
-import SpotifyConnect from './components/spotifyconnect.vue'
-onMounted(() => {
-  console.log('App Mounted')
-})
+import { useSpotifyLogIn } from './utils/spotifyAccountComp'
+// eslint-disable-next-line no-unused-vars
+const { spotifyUserProfile } = useSpotifyLogIn()
+
 </script>
 
 <template>
-  <SpotifyConnect />
-  <hr>
+  <div>angmeledet als {{ spotifyUserProfile?.id }}</div>
   <router-view />
 </template>
