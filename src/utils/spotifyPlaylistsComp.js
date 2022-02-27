@@ -63,6 +63,8 @@ const addToPlaylist = async (artistItem, songUri) => {
   // eslint-disable-next-line no-unused-vars
   const trackAlreadyInPlaylist = !!tracksInPlaylist.items.find(item => item.track.uri === trackUri)
 
+  addToSpecificPlaylist(zaPlaylistId.value, songUri.value)
+
   if (trackAlreadyInPlaylist) {
     alert('Track ist bereits in der Playlist')
   } else {
@@ -78,8 +80,17 @@ const addToSpecificPlaylist = async (playlistId, songUri) => {
   alert('Song ist jetzt in Playlist')
 }
 
+const zaPlaylistId = ref(null)
+
 watch(() => spotifyLogin?.userId?.value, (userId) => {
-  if (userId) readPlaylists().then(() => getTargetPlaylist('za My BestOf-Songs'))
+  if (userId) {
+    readPlaylists()
+
+      .then(() => getTargetPlaylist('za My BestOf-Songs'))
+      .then(playlistitem => {
+        zaPlaylistId.value = playlistitem.id
+      })
+  }
 }, { immediate: true })
 
 export const useSpotifyPlaylists = () => {
