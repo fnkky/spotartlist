@@ -13,7 +13,9 @@ const allPlaylists = ref([])
 
 const readPlaylists = (offset = 0, limit = 50) => {
   console.log('Lese Playlists ein', { offset, limit })
-  allPlaylists.value.length = 0
+  if (!offset) {
+    allPlaylists.value = []
+  }
   const userId = spotifyLogin?.userId?.value
   if (!userId) return undefined
   return spotifyApi.getUserPlaylists(userId, { limit, offset })
@@ -75,6 +77,6 @@ watch(() => spotifyLogin?.userId?.value, (userId) => {
 
 export const useSpotifyPlaylists = () => {
   return {
-    getTargetPlaylist, addToPlaylist, readPlaylists
+    getTargetPlaylist, addToPlaylist, readPlaylists, allPlaylists
   }
 }

@@ -18,14 +18,14 @@
       <v-spacer />
 
       <v-btn
-        :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-        @click="show = !show"
+        :icon="showAddToPlaylistExpands ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+        @click="showAddToPlaylistExpands = !showAddToPlaylistExpands"
       />
     </v-card-actions>
 
     <v-expand-transition>
       <div
-        v-show="show"
+        v-if="showAddToPlaylistExpands"
         class="px-2 pb-3"
       >
         <v-divider />
@@ -45,6 +45,18 @@
             </v-btn>
           </li>
         </ul>
+        <v-divider />
+        <v-list-subheader>Song zu Playlist hinzufügen</v-list-subheader>
+        <div class="d-flex align-baseline">
+          <select-playlist v-model="playlistToAddTrack" />
+          <v-btn
+            small
+            icon
+            flat
+          >
+            <v-icon>mdi-database-plus</v-icon>
+          </v-btn>
+        </div>
       </div>
     </v-expand-transition>
   </v-card>
@@ -64,6 +76,7 @@ import { watch, defineProps, ref } from 'vue'
 import { useSpotifyTrack } from '../utils/spotifyTrack.js'
 
 import { useSpotifyPlaylists } from '../utils/spotifyPlaylistsComp.js'
+import SelectPlaylist from './selectPlaylist.vue'
 const spotifyPlaylistManager = useSpotifyPlaylists()
 
 const props = defineProps({
@@ -79,5 +92,6 @@ watch(() => props.trackId, (newVal) => {
   spotifyTrack.setTrackid(newVal)
 }, { immediate: true })
 
-const show = ref(true)
+const showAddToPlaylistExpands = ref(true)
+const playlistToAddTrack = ref(null)
 </script>
