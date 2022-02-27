@@ -51,6 +51,11 @@ const getTargetPlaylist = async (playlistName, artistName) => {
   return playlist || await createPlaylist(playlistName, artistName)
 }
 
+const songIsAlreadiyInPlaylist = async (playlistId, trackUri) => {
+  const tracksInPlaylist = await spotifyApi.getPlaylistTracks(playlistId)
+  return !!tracksInPlaylist.items.find(item => item.track.uri === trackUri)
+}
+
 const addToPlaylist = async (artistItem, songUri) => {
   const { name, playlistName } = artistItem
 
@@ -58,26 +63,27 @@ const addToPlaylist = async (artistItem, songUri) => {
 
   const playlistId = playlist.id
   const trackUri = songUri.value
-  // eslint-disable-next-line no-unused-vars
-  const tracksInPlaylist = await spotifyApi.getPlaylistTracks(playlistId)
-  // eslint-disable-next-line no-unused-vars
-  const trackAlreadyInPlaylist = !!tracksInPlaylist.items.find(item => item.track.uri === trackUri)
 
-  addToSpecificPlaylist(zaPlaylistId.value, songUri.value)
+  const songIstBereitsEnthalten = await songIsAlreadiyInPlaylist(playlistId, trackUri)
 
-  if (trackAlreadyInPlaylist) {
+  if (songIstBereitsEnthalten) {
     alert('Track ist bereits in der Playlist')
   } else {
     await spotifyApi.addTracksToPlaylist(playlistId, [trackUri])
     alert('Song ist jetzt in Playlist')
   }
+  addToSpecificPlaylist(zaPlaylistId.value, songUri.value)
 }
 
 const addToSpecificPlaylist = async (playlistId, songUri) => {
-  await spotifyApi.addTracksToPlaylist(playlistId, [songUri])
-  // eslint-disable-next-line no-unused-vars
+  const songIstBereitsEnthalten = await songIsAlreadiyInPlaylist(playlistId, songUri)
 
-  alert('Song ist jetzt in Playlist')
+  if (songIstBereitsEnthalten) {
+    alert('Track ist bereits in der Playlist')
+  } else {
+    await spotifyApi.addTracksToPlaylist(playlistId, [songUri])
+    alert('Song ist jetzt in Playlist')
+  }
 }
 
 const zaPlaylistId = ref(null)
