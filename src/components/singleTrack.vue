@@ -53,6 +53,7 @@
             small
             icon
             flat
+            @click="addTrackToPlaylist"
           >
             <v-icon>mdi-database-plus</v-icon>
           </v-btn>
@@ -91,6 +92,10 @@ const spotifyTrack = useSpotifyTrack()
 watch(() => props.trackId, (newVal) => {
   spotifyTrack.setTrackid(newVal)
 }, { immediate: true })
+
+const addTrackToPlaylist = () => {
+  spotifyPlaylistManager.addToSpecificPlaylist(playlistToAddTrack.value, spotifyTrack.songUri.value)
+}
 
 const showAddToPlaylistExpands = ref(true)
 const playlistToAddTrack = ref(null)

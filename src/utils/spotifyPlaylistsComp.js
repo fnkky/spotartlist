@@ -71,12 +71,19 @@ const addToPlaylist = async (artistItem, songUri) => {
   }
 }
 
+const addToSpecificPlaylist = async (playlistId, songUri) => {
+  await spotifyApi.addTracksToPlaylist(playlistId, [songUri])
+  // eslint-disable-next-line no-unused-vars
+
+  alert('Song ist jetzt in Playlist')
+}
+
 watch(() => spotifyLogin?.userId?.value, (userId) => {
   if (userId) readPlaylists().then(() => getTargetPlaylist('za My BestOf-Songs'))
 }, { immediate: true })
 
 export const useSpotifyPlaylists = () => {
   return {
-    getTargetPlaylist, addToPlaylist, readPlaylists, allPlaylists
+    getTargetPlaylist, addToPlaylist, readPlaylists, allPlaylists, addToSpecificPlaylist
   }
 }
