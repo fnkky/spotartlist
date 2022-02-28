@@ -1,17 +1,15 @@
 <script setup>
+import myTransport from './components/myTransport.vue'
 import { useSpotifyLogIn } from './utils/spotifyAccountComp.js'
-import { useSpotifyTransport } from './utils/transportComp.js'
 // eslint-disable-next-line no-unused-vars
 const { spotifyUserProfile } = useSpotifyLogIn()
-
-const { nextSong, previousSong, playPause } = useSpotifyTransport()
 
 </script>
 
 <template>
   <v-app style="height: 100vh;">
     <v-app-bar app>
-      <div class="d-flex justify-between">
+      <div class="d-flex justify-between w-full align-baseline pr-2">
         <h1 class="text-h4">
           SpotArtList
         </h1>
@@ -22,26 +20,7 @@ const { nextSong, previousSong, playPause } = useSpotifyTransport()
       <router-view />
     </v-main>
     <v-footer app>
-      <div class="d-flex justify-between w-full">
-        <v-btn
-          icon
-          @click="previousSong"
-        >
-          <v-icon>mdi-skip-backward</v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          @click="playPause"
-        >
-          <v-icon>mdi-play</v-icon>/<v-icon>mdi-pause</v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          @click="nextSong"
-        >
-          <v-icon>mdi-skip-forward</v-icon>
-        </v-btn>
-      </div>
+      <my-transport />
     </v-footer>
   </v-app>
 </template>

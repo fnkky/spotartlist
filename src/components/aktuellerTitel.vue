@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useSpotifyApi } from '../utils/spotifyApiComp'
 import SingleTrack from './singleTrack.vue'
 
@@ -41,6 +41,14 @@ const readCurrentTrack = () => {
       titleRaw.value = currentTrack
     })
 }
+
+const intervalId = ref(null)
+intervalId.value = setInterval(() => readCurrentTrack(), 2500)
+
+onUnmounted(() => {
+  clearInterval(intervalId.value)
+  intervalId.value = null
+})
 
 onMounted(() => {
   readCurrentTrack()
