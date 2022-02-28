@@ -43,6 +43,7 @@ async function createPlaylist (playlistName, artistName) {
     collaborative: false,
     description: `Meine BestOf-Songs${artistName ? ' von ' + artistName : ''}`
   })
+  await readPlaylists()
   return neuePlaylist
 }
 
