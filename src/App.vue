@@ -4,7 +4,7 @@ import { useSpotifyTransport } from './utils/transportComp.js'
 // eslint-disable-next-line no-unused-vars
 const { spotifyUserProfile } = useSpotifyLogIn()
 
-const { nextSong, previousSong } = useSpotifyTransport()
+const { nextSong, previousSong, playPause } = useSpotifyTransport()
 
 </script>
 
@@ -29,8 +29,11 @@ const { nextSong, previousSong } = useSpotifyTransport()
         >
           <v-icon>mdi-skip-backward</v-icon>
         </v-btn>
-        <v-btn icon>
-          <v-icon>mdi-play</v-icon>
+        <v-btn
+          icon
+          @click="playPause"
+        >
+          <v-icon>mdi-play</v-icon>/<v-icon>mdi-pause</v-icon>
         </v-btn>
         <v-btn
           icon
