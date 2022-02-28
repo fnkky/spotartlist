@@ -11,6 +11,8 @@
       <v-btn
         color="orange-lighten-2"
         variant="text"
+        :class="cursor-pointer"
+        @click="showAddToPlaylistExpands = !showAddToPlaylistExpands"
       >
         In Playlists aufnehmen
       </v-btn>
