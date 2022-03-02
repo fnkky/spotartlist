@@ -10,18 +10,15 @@ export function useSpotifyTrack () {
 
   const trackId = ref(null)
 
-  const fetchTrack = () => {
-    if (!trackId.value) {
-      titleRaw.value = null
-      return undefined
-    }
-    spotifyApi.getTrack(trackId.value).then(result => {
+  const fetchTrack = (newTrackid) => {
+    if (!newTrackid) return undefined
+    spotifyApi.getTrack(newTrackid).then(result => {
       titleRaw.value = result
     })
   }
 
   watch(() => trackId.value, (newTrackid) => {
-    fetchTrack()
+    fetchTrack(newTrackid)
   }, { immediate: true })
 
   const setTrackid = (val) => {

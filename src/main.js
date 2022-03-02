@@ -5,6 +5,7 @@ import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 
 import './index.css'
+import './utils/spotifyPlaylistsComp'
 loadFonts()
 
 createApp(App)

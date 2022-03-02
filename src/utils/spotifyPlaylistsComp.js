@@ -1,6 +1,7 @@
 import { ref, watch } from 'vue'
 import { useSpotifyLogIn } from './spotifyAccountComp'
 import { useSpotifyApi } from './spotifyApiComp'
+import { useRememberPlaylists } from './spotifyRememberPlaylists'
 
 const spotifyLogin = useSpotifyLogIn()
 const { spotifyApi } = useSpotifyApi()
@@ -83,6 +84,7 @@ const addToSpecificPlaylist = async (playlistId, songUri) => {
     alert('Track ist bereits in der Playlist')
   } else {
     await spotifyApi.addTracksToPlaylist(playlistId, [songUri])
+    useRememberPlaylists().addPlaylistToList(playlistId)
     alert('Song ist jetzt in Playlist')
   }
 }

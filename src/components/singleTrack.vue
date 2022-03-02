@@ -49,17 +49,9 @@
         </ul>
         <v-divider />
         <v-list-subheader>Song zu Playlist hinzufügen</v-list-subheader>
-        <div class="d-flex align-baseline">
-          <select-playlist v-model="playlistToAddTrack" />
-          <v-btn
-            small
-            icon
-            flat
-            @click="addTrackToPlaylist"
-          >
-            <v-icon>mdi-database-plus</v-icon>
-          </v-btn>
-        </div>
+        <add-track-to-playlist
+          :song-uri="spotifyTrack.songUri"
+        />
       </div>
     </v-expand-transition>
   </v-card>
@@ -80,6 +72,7 @@ import { useSpotifyTrack } from '../utils/spotifyTrack.js'
 
 import { useSpotifyPlaylists } from '../utils/spotifyPlaylistsComp.js'
 import SelectPlaylist from './selectPlaylist.vue'
+import AddTrackToPlaylist from './addTrackToPlaylist.vue'
 const spotifyPlaylistManager = useSpotifyPlaylists()
 
 const props = defineProps({
@@ -95,10 +88,5 @@ watch(() => props.trackId, (newVal) => {
   spotifyTrack.setTrackid(newVal)
 }, { immediate: true })
 
-const addTrackToPlaylist = () => {
-  spotifyPlaylistManager.addToSpecificPlaylist(playlistToAddTrack.value, spotifyTrack.songUri.value)
-}
-
 const showAddToPlaylistExpands = ref(true)
-const playlistToAddTrack = ref(null)
 </script>

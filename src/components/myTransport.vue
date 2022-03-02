@@ -5,7 +5,7 @@
         cols="12"
         class="d-flex justify-center"
       >
-        Player: {{ currentPlaybackState?.device.name }}
+        Player: {{ currentPlaybackState?.device?.name }}
       </v-col>
     </v-row>
     <v-row dense>
