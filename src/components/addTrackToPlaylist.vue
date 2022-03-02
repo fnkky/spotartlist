@@ -1,4 +1,10 @@
 <template>
+  <!-- <v-list-subheader
+    class="pb-1"
+    style="min-height: unset"
+  >
+    Song zu bestimmter Playlist hinzufügen
+  </v-list-subheader> -->
   <div
     v-if="songUri"
     class="d-flex align-center"
@@ -9,6 +15,7 @@
       small
       icon
       flat
+      variant="text"
       :disabled="!playlistToAddTrack || !songUri"
       @click="addTrackToPlaylist"
     >

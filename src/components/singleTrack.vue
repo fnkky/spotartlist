@@ -1,59 +1,44 @@
 <template>
-  <v-card v-if="!!trackId">
-    <v-card-title>
-      {{ spotifyTrack?.songTitle.value }}
-    </v-card-title>
-    <v-card-subtitle> {{ spotifyTrack?.artistsJoined.value }}</v-card-subtitle>
+  <v-card
+    v-if="!!trackId"
+    border
+  >
     <v-img
       :src="spotifyTrack?.albumImageSource.value"
-      height="30vh"
-    /><v-card-actions>
-      <v-btn
-        color="orange-lighten-2"
-        variant="text"
-        :class="cursor-pointer"
-        @click="showAddToPlaylistExpands = !showAddToPlaylistExpands"
+    />
+    <div class="d-flex">
+      <v-card-subtitle style="flex-grow: 5">
+        {{ spotifyTrack?.artistsJoined.value }}
+      </v-card-subtitle>
+      <v-card-title style="flex-grow: 8">
+        {{ spotifyTrack?.songTitle.value }}
+      </v-card-title>
+    </div>
+    <v-divider />
+
+    <ul>
+      <li
+        v-for="artistItem in spotifyTrack?.artists.value"
+        :key="artistItem.id"
+        style="margin-top: 0.25rem"
       >
-        In Playlists aufnehmen
-      </v-btn>
-
-      <v-spacer />
-
-      <v-btn
-        :icon="showAddToPlaylistExpands ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-        @click="showAddToPlaylistExpands = !showAddToPlaylistExpands"
+        <v-btn
+          outlined
+          color="blue"
+          variant="text"
+          block
+          @click="spotifyPlaylistManager.addToPlaylist(artistItem, spotifyTrack.songUri)"
+        >
+          <v-icon>mdi-playlist-plus</v-icon>
+          "{{ artistItem.playlistName }}"
+        </v-btn>
+      </li>
+    </ul>
+    <div class="pa-2">
+      <add-track-to-playlist
+        :song-uri="spotifyTrack.songUri"
       />
-    </v-card-actions>
-
-    <v-expand-transition>
-      <div
-        v-if="showAddToPlaylistExpands"
-        class="px-2 pb-3"
-      >
-        <v-divider />
-
-        <ul>
-          <li
-            v-for="artistItem in spotifyTrack?.artists.value"
-            :key="artistItem.id"
-            style="margin-top: 0.25rem"
-          >
-            <v-btn
-              color="primary"
-              block
-              @click="spotifyPlaylistManager.addToPlaylist(artistItem, spotifyTrack.songUri)"
-            >
-              {{ artistItem.playlistName }}
-            </v-btn>
-          </li>
-        </ul>
-        <v-divider />
-        <v-list-subheader>Song zu Playlist hinzufügen</v-list-subheader>
-        <add-track-to-playlist
-          :song-uri="spotifyTrack.songUri"
-        />
-      </div>
-    </v-expand-transition>
+    </div>
   </v-card>
 
   <div

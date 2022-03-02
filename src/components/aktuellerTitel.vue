@@ -1,24 +1,23 @@
 <template>
-  <section>
-    <h3>
-      Modus: aktueller Titel
+  <!-- <v-app-bar flat>
+    Modus: aktueller Titel
 
-      <v-btn
-        icon
-        flat
-        @click="readCurrentTrack"
-      >
-        <v-icon>mdi-refresh</v-icon>
-      </v-btn>
-    </h3>
-  </section>
-  <hr>
-  <section>
-    <SingleTrack
-      v-if="trackId"
-      :track-id="trackId"
-    />
-  </section>
+    <v-btn
+      icon
+      flat
+      @click="readCurrentTrack"
+    >
+      <v-icon>mdi-refresh</v-icon>
+    </v-btn>
+  </v-app-bar> -->
+  <v-card flat>
+    <v-card-title class="py-1" />
+    <v-card-text class="pa-0" />
+  </v-card>
+  <SingleTrack
+    v-if="trackId"
+    :track-id="trackId"
+  />
 </template>
 
 <script setup>

@@ -1,26 +1,26 @@
 <template>
-  <div class="d-flex align-baseline">
-    <label
-      for="playlistSelect"
-      class="mr-2"
-    >Playlist</label>
-    <select
-      id="playlistSelect"
-      v-model="selectedId"
-      style="border: 1px solid"
-      class="px-2 py-1 w-full"
-      placeholder="asdf"
+  <select
+    id="playlistSelect"
+    v-model="selectedId"
+    style="border: 1px solid"
+    class="px-2 py-1 w-full rounded-lg outline-gray-500"
+  >
+    <option
+      value=""
+      disabled
+      selected
     >
-      <option
-        v-for="playlist in playlistsNames"
-        :key="playlist.id"
-        :value="playlist.id"
-        :disabled="playlist.disabled"
-      >
-        {{ playlist.name }}
-      </option>
-    </select>
-  </div>
+      {{ props.placeholder }}
+    </option>
+    <option
+      v-for="playlist in playlistsNames"
+      :key="playlist.id"
+      :value="playlist.id"
+      :disabled="playlist.disabled"
+    >
+      {{ playlist.name }}
+    </option>
+  </select>
 </template>
 
 <script setup>
@@ -36,6 +36,10 @@ const props = defineProps({
   showLastUsedPlaylistsFirst: {
     type: Boolean,
     default: true
+  },
+  placeholder: {
+    type: String,
+    default: ' Andere Playlist auswählen '
   }
 })
 
@@ -74,7 +78,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const selectedId = computed({
   get () {
-    return props.modelValue
+    return props.modelValue || ''
   },
   set (val) {
     emit('update:modelValue', val)
