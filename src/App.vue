@@ -8,6 +8,7 @@ const { spotifyUserProfile } = useSpotifyLogIn()
 
 <template>
   <v-app
+    dark
     style="height: 100vh;"
     class="d-flex flex-col"
   >
