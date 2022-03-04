@@ -1,51 +1,27 @@
 <template>
-  <v-container fluid>
-    <v-row dense>
-      <v-col
-        cols="12"
-        class="d-flex justify-center"
-      >
-        Player: {{ currentPlaybackState?.device?.name }}
-      </v-col>
-    </v-row>
-    <v-row dense>
-      <v-col
-        cols="4"
-        class="d-flex justify-center"
-      >
-        <v-btn
-          icon
-          @click="previousSong"
-        >
-          <v-icon>mdi-skip-backward</v-icon>
-        </v-btn>
-      </v-col>
-      <v-col
-        cols="4"
-        class="d-flex justify-center"
-      >
-        <v-btn
-          icon
-          @click="playPause"
-        >
-          <v-icon v-if="iconPlayPause">
-            {{ iconPlayPause }}
-          </v-icon>
-        </v-btn>
-      </v-col>
-      <v-col
-        cols="4"
-        class="d-flex justify-center"
-      >
-        <v-btn
-          icon
-          @click="nextSong"
-        >
-          <v-icon>mdi-skip-forward</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div class="flex justify-around w-full">
+    Player: {{ currentPlaybackState?.device?.name }}
+    <button
+      icon
+      @click="previousSong"
+    >
+      <v-icon>mdi-skip-backward</v-icon>
+    </button>
+    <button
+      icon
+      @click="playPause"
+    >
+      <v-icon v-if="iconPlayPause">
+        {{ iconPlayPause }}
+      </v-icon>
+    </button>
+    <button
+      icon
+      @click="nextSong"
+    >
+      <v-icon>mdi-skip-forward</v-icon>
+    </button>
+  </div>
 </template>
 
 <script setup>

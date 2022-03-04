@@ -7,33 +7,25 @@ const { spotifyUserProfile } = useSpotifyLogIn()
 </script>
 
 <template>
-  <v-app
-    style="height: 100vh;"
-    class="d-flex flex-col"
-  >
-    <v-app-bar
-      app
-    >
-      <div class="d-flex justify-between w-full align-baseline">
-        <h1 class="text-h4">
-          SpotArtList
-        </h1>
-        <div>{{ spotifyUserProfile?.id }}</div>
+  <div class="sportartlistApp bg-base-100 h-full flex flex-column">
+    <header>
+      <div class="navbar  text-white">
+        <div class="flex-1">
+          <a class="btn btn-ghost normal-case text-xl">SpotArtList</a>
+        </div>
+        <div class="flex-none">
+          {{ spotifyUserProfile?.id }}
+        </div>
       </div>
-    </v-app-bar>
-    <v-main
-      app
-      class="myAppBg flex-grow"
-    >
+    </header>
+
+    <main class="myAppBg flex-grow">
       <router-view />
-    </v-main>
-    <v-footer
-      class="flex-grow-0"
-      app
-    >
+    </main>
+    <footer class="footer p-2 bg-neutral text-neutral-content">
       <my-transport />
-    </v-footer>
-  </v-app>
+    </footer>
+  </div>
 </template>
 
 <style>
