@@ -2,8 +2,7 @@
   <select
     id="playlistSelect"
     v-model="selectedId"
-    style="border: 1px solid"
-    class="px-2 py-1 w-full rounded-lg outline-gray-500"
+    class="select select-accent text-accent w-4/5"
   >
     <option
       value=""

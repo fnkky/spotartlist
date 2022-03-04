@@ -1,26 +1,26 @@
 <template>
-  <!-- <v-list-subheader
-    class="pb-1"
-    style="min-height: unset"
-  >
-    Song zu bestimmter Playlist hinzufügen
-  </v-list-subheader> -->
   <div
     v-if="songUri"
     class="d-flex align-center"
   >
     <select-playlist v-model="playlistToAddTrack" />
-    <v-btn
-      class="ml-1"
-      small
-      icon
-      flat
-      variant="text"
+    <button
+      class="btn btn-accent"
       :disabled="!playlistToAddTrack || !songUri"
       @click="addTrackToPlaylist"
     >
-      <v-icon>mdi-database-plus</v-icon>
-    </v-btn>
+      <svg
+
+        style="width:24px;height:24px"
+        viewBox="0 0 24 24"
+      >
+        <path
+          class="btn-accent"
+          fill="accent"
+          d="M2,16H10V14H2M18,14V10H16V14H12V16H16V20H18V16H22V14M14,6H2V8H14M14,10H2V12H14V10Z"
+        />
+      </svg>
+    </button>
   </div>
 </template>
 
