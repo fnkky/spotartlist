@@ -65,30 +65,30 @@ const addToPlaylist = async (artistItem, songUri) => {
   const playlist = await getTargetPlaylist(playlistName, name)
 
   const playlistId = playlist.id
-  const playlistName = getPlaylistItemById(playlistId)?.name
+  const nameOfPlaylist = getPlaylistItemById(playlistId)?.name
   const trackUri = songUri.value
 
   const songIstBereitsEnthalten = await songIsAlreadiyInPlaylist(playlistId, trackUri)
 
   if (songIstBereitsEnthalten) {
-    iziToast.info({ message: 'Song ist bereits in der Playlist ' + playlistName, position: 'topCenter' })
+    iziToast.info({ message: 'Song ist bereits in der Playlist ' + nameOfPlaylist, position: 'topCenter' })
   } else {
     await spotifyApi.addTracksToPlaylist(playlistId, [trackUri])
 
-    iziToast.info({ message: 'Song ist jetzt in der Playlist' + playlistName, position: 'topCenter' })
+    iziToast.info({ message: 'Song ist jetzt in der Playlist' + nameOfPlaylist, position: 'topCenter' })
   }
   addToSpecificPlaylist(zaPlaylistId.value, songUri.value)
 }
 
 const addToSpecificPlaylist = async (playlistId, songUri) => {
   const songIstBereitsEnthalten = await songIsAlreadiyInPlaylist(playlistId, songUri)
-  const playlistName = getPlaylistItemById(playlistId)?.name
+  const nameOfPlaylist = getPlaylistItemById(playlistId)?.name
   if (songIstBereitsEnthalten) {
-    iziToast.info({ message: 'Song ist bereits in der Playlist' + playlistName, position: 'topCenter' })
+    iziToast.info({ message: 'Song ist bereits in der Playlist' + nameOfPlaylist, position: 'topCenter' })
   } else {
     await spotifyApi.addTracksToPlaylist(playlistId, [songUri])
     useRememberPlaylists().addPlaylistToList(playlistId)
-    iziToast.info({ message: 'Song ist jetzt in der Playlist' + playlistName, position: 'topCenter' })
+    iziToast.info({ message: 'Song ist jetzt in der Playlist' + nameOfPlaylist, position: 'topCenter' })
   }
 }
 
