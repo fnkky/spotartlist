@@ -5,7 +5,7 @@
   >
     <select-playlist v-model="playlistToAddTrack" />
     <button
-      class="btn btn-accent"
+      class="btn btn-accent ml-auto"
       :disabled="!playlistToAddTrack || !songUri"
       @click="addTrackToPlaylist"
     >

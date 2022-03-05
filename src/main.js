@@ -6,6 +6,7 @@ import { loadFonts } from './plugins/webfontloader'
 
 import './index.css'
 import './utils/spotifyPlaylistsComp'
+import '../node_modules/izitoast/dist/css/iziToast.min.css'
 loadFonts()
 
 createApp(App)

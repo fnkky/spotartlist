@@ -6,7 +6,6 @@
   >
     <option
       value=""
-      disabled
       selected
     >
       {{ props.placeholder }}
@@ -38,7 +37,7 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: ' Andere Playlist auswählen '
+    default: 'Playlist auswählen '
   }
 })
 

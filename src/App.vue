@@ -7,8 +7,10 @@ const { spotifyUserProfile } = useSpotifyLogIn()
 </script>
 
 <template>
-  <div class="sportartlistApp bg-base-100 h-full flex flex-column">
-    <header>
+  <div
+    class="sportartlistApp bg-base-100 flex flex-column h-screen justify-between"
+  >
+    <header class="flex-shrink-0">
       <div class="navbar  text-white">
         <div class="flex-1">
           <a class="btn btn-ghost normal-case text-xl">SpotArtList</a>
@@ -18,20 +20,14 @@ const { spotifyUserProfile } = useSpotifyLogIn()
         </div>
       </div>
     </header>
+    <hr>
 
-    <main class="myAppBg flex-grow">
-      <router-view />
+    <main class="myAppBg flex-grow overflow-auto mb-16">
+      <router-view v-if="!!spotifyUserProfile" />
+      <span v-else>Du konntest scheinbar nicht angemeldet werden. Doof, oder?</span>
     </main>
-    <footer class="footer p-2 bg-neutral text-neutral-content">
+    <footer class="footer p-2 bg-neutral text-neutral-content fixed bottom-0">
       <my-transport />
     </footer>
   </div>
 </template>
-
-<style>
-html, body {
-    margin: 0;
-    height: 100%;
-}
-
-</style>

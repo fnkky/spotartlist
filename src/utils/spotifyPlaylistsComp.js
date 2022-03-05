@@ -1,3 +1,4 @@
+import iziToast from 'izitoast'
 import { ref, watch } from 'vue'
 import { useSpotifyLogIn } from './spotifyAccountComp'
 import { useSpotifyApi } from './spotifyApiComp'
@@ -64,28 +65,30 @@ const addToPlaylist = async (artistItem, songUri) => {
   const playlist = await getTargetPlaylist(playlistName, name)
 
   const playlistId = playlist.id
+  const playlistName = getPlaylistItemById(playlistId)?.name
   const trackUri = songUri.value
 
   const songIstBereitsEnthalten = await songIsAlreadiyInPlaylist(playlistId, trackUri)
 
   if (songIstBereitsEnthalten) {
-    alert('Track ist bereits in der Playlist')
+    iziToast.info({ message: 'Song ist bereits in der Playlist ' + playlistName, position: 'topCenter' })
   } else {
     await spotifyApi.addTracksToPlaylist(playlistId, [trackUri])
-    alert('Song ist jetzt in Playlist')
+
+    iziToast.info({ message: 'Song ist jetzt in der Playlist' + playlistName, position: 'topCenter' })
   }
   addToSpecificPlaylist(zaPlaylistId.value, songUri.value)
 }
 
 const addToSpecificPlaylist = async (playlistId, songUri) => {
   const songIstBereitsEnthalten = await songIsAlreadiyInPlaylist(playlistId, songUri)
-
+  const playlistName = getPlaylistItemById(playlistId)?.name
   if (songIstBereitsEnthalten) {
-    alert('Track ist bereits in der Playlist')
+    iziToast.info({ message: 'Song ist bereits in der Playlist' + playlistName, position: 'topCenter' })
   } else {
     await spotifyApi.addTracksToPlaylist(playlistId, [songUri])
     useRememberPlaylists().addPlaylistToList(playlistId)
-    alert('Song ist jetzt in Playlist')
+    iziToast.info({ message: 'Song ist jetzt in der Playlist' + playlistName, position: 'topCenter' })
   }
 }
 
@@ -102,8 +105,12 @@ watch(() => spotifyLogin?.userId?.value, (userId) => {
   }
 }, { immediate: true })
 
+const getPlaylistItemById = (/** @type{string} */ playlistId) => {
+  return allPlaylists.value.find(item => item.id === playlistId)
+}
+
 export const useSpotifyPlaylists = () => {
   return {
-    getTargetPlaylist, addToPlaylist, readPlaylists, allPlaylists, addToSpecificPlaylist
+    getTargetPlaylist, addToPlaylist, readPlaylists, allPlaylists, addToSpecificPlaylist, getPlaylistItemById
   }
 }

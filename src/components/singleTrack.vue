@@ -1,20 +1,24 @@
 <template>
   <div
     v-if="!!trackId"
-    class="card w-11/12 glass m-auto mt-5"
+    class="card w-11/12 glass m-auto mt-2"
   >
-    <figure>
+    <figure class="pa-2">
       <img
         :src="spotifyTrack?.albumImageSource.value"
         alt="Alumbcover des aktuellen Tracks"
       >
     </figure>
-    <div class="card-body">
-      <h2 class="card-title">
-        {{ spotifyTrack?.songTitle.value }}
+    <div class="card-body pt-2 pb-3">
+      <h2 class="card-title justify-center flex flex-col">
+        <span>{{ spotifyTrack?.songTitle.value }}</span>
+        <p>
+          {{ spotifyTrack?.artistsJoined.value }}
+        </p>
       </h2>
-      <p>{{ spotifyTrack?.artistsJoined.value }}</p>
+
       <hr>
+
       <div class="card-actions justify-end">
         <div class="flex flex-column">
           <ul>
