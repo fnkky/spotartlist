@@ -3,10 +3,14 @@
     v-if="!!trackId"
     class="card w-11/12 glass m-auto mt-2"
   >
+    <h2 class="card-title justify-center flex flex-col text-white">
+      {{ route.meta.title }}
+    </h2>
     <figure class="pa-2">
       <img
         :src="spotifyTrack?.albumImageSource.value"
         alt="Alumbcover des aktuellen Tracks"
+        style="height: 25vh;"
       >
     </figure>
     <div class="card-body pt-2 pb-3">
@@ -48,14 +52,16 @@
 
 <script setup>
 
-import { watch, defineProps, ref } from 'vue'
+import { watch, defineProps } from 'vue'
 
 import { useSpotifyTrack } from '../utils/spotifyTrack.js'
 
 import { useSpotifyPlaylists } from '../utils/spotifyPlaylistsComp.js'
-import SelectPlaylist from './selectPlaylist.vue'
 import AddTrackToPlaylist from './addTrackToPlaylist.vue'
+import { useRoute } from 'vue-router'
 const spotifyPlaylistManager = useSpotifyPlaylists()
+
+const route = useRoute()
 
 const props = defineProps({
   trackId: {
@@ -70,5 +76,4 @@ watch(() => props.trackId, (newVal) => {
   spotifyTrack.setTrackid(newVal)
 }, { immediate: true })
 
-const showAddToPlaylistExpands = ref(true)
 </script>

@@ -1,6 +1,7 @@
 <script setup>
 import myTransport from './components/myTransport.vue'
 import { useSpotifyLogIn } from './utils/spotifyAccountComp.js'
+import SelectFromLastTracks from './components/SelectFromLastTracks.vue'
 // eslint-disable-next-line no-unused-vars
 const { spotifyUserProfile } = useSpotifyLogIn()
 
@@ -15,9 +16,16 @@ const { spotifyUserProfile } = useSpotifyLogIn()
         <div class="flex-1">
           <a class="btn btn-ghost normal-case text-xl">SpotArtList</a>
         </div>
-        <div class="flex-none">
-          {{ spotifyUserProfile?.id }}
-        </div>
+        <router-link
+          to="/currentTrack"
+        >
+          <template #default>
+            <button class="btn btn-ghost">
+              läuft gerade
+            </button>
+          </template>
+        </router-link>
+        <select-from-last-tracks />
       </div>
     </header>
     <hr>
