@@ -3,9 +3,6 @@
     v-if="!!trackId"
     class="card w-11/12 glass m-auto mt-2"
   >
-    <h2 class="card-title justify-center flex flex-col text-white">
-      {{ route.meta.title }}
-    </h2>
     <figure class="pa-2">
       <img
         :src="spotifyTrack?.albumImageSource.value"

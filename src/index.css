@@ -1,12 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html, body {
-  height: 100%;  
+html, body, #app {
+  background-color: black;
+  overflow: auto;
+  height: 100%;
+  height: 100vh;
 }
 
-#app {  
-   display: flex;
-   flex-direction: column;
-   height: 100%;  
+
+.v-leave-active {
+  transition: opacity 0.1s ease;
+}
+
+.v-enter-active {
+  transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.expand-enter-active,
+.expand-leave-active {
+  transition-property: opacity, height;
+}
+
+.expand-enter,
+.expand-leave-to {
+  opacity: 0;
 }

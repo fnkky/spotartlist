@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-around w-full">
+  <div class="flex justify-around w-full bg-gray-700 px-2 py-3">
     Player: {{ currentPlaybackState?.device?.name }}
     <button
       icon
